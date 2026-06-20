@@ -13,7 +13,7 @@ const requestSerializer = (req) => ({
 });
 
 const responseSerializer = (res, data, duration) => ({
-  statusCode: res?.statusCode,
+  statusCode: res?.statusCode || res?.status,
   duration: `${duration}ms`,
   endTime: Date.now(),
   responseSize: data

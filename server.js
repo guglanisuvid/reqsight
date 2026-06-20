@@ -5,7 +5,10 @@ const {
   errorLogger,
   notFoundLogger,
   throwError,
+  axiosInterceptors,
 } = require("./index");
+
+axiosInterceptors();
 
 const app = express();
 app.use(express.json());
@@ -30,13 +33,23 @@ app.get("/crash", (req, res) => {
 
 const axios = require("axios");
 app.get("/axios", async (req, res, next) => {
-try {
-    await axios.get("http://localhost:3000/error");
+  try {
+    await axios.get("http://localhost:3000/test?test=1", {
+      params: {
+        test: 1,
+      },
+      data: {
+        test: 1,
+      },
+      headers: {
+        "x-correlation-id": req.correlationId,
+      },
+    });
 
-  res.json({ success: true });
-} catch (error) {
-  next(error);
-}
+    res.json({ success: true });
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.use(notFoundLogger);
