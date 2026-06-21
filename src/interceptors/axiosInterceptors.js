@@ -4,7 +4,11 @@ const logger = require("../logger");
 const sanitizeAxiosError = require("../utils/sanitizeAxiosError");
 const { responseSerializer } = require("../utils/serializer");
 
+let registered = false;
+
 const axiosInterceptors = () => {
+  if (registered) return;
+
   let axios;
 
   try {
@@ -17,6 +21,8 @@ const axiosInterceptors = () => {
     );
     return;
   }
+
+  registered = true;
 
   axios.interceptors.request.use(
     (config) => {
@@ -49,22 +55,22 @@ const axiosInterceptors = () => {
 
   axios.interceptors.response.use(
     (response) => {
-      logger.info(
-        {
-          correlationId: response?.config?.headers?.["x-correlation-id"],
-          method: response?.config?.method,
-          path: response?.config?.url,
-          ...responseSerializer(
-            response,
-            response?.data,
-            Date.now() - response?.config?.startTime,
-          ),
-          type: "OUTBOUND",
-        },
-        response?.config?.headers?.["x-correlation-id"]
-          ? `[${response?.config?.headers["x-correlation-id"]}] - OUTBOUND RESPONSE`
-          : "OUTBOUND RESPONSE",
-      );
+      // logger.info(
+      //   {
+      //     correlationId: response?.config?.headers?.["x-correlation-id"],
+      //     method: response?.config?.method,
+      //     path: response?.config?.url,
+      //     ...responseSerializer(
+      //       response,
+      //       response?.data,
+      //       Date.now() - response?.config?.startTime,
+      //     ),
+      //     type: "OUTBOUND",
+      //   },
+      //   response?.config?.headers?.["x-correlation-id"]
+      //     ? `[${response?.config?.headers["x-correlation-id"]}] - OUTBOUND RESPONSE`
+      //     : "OUTBOUND RESPONSE",
+      // );
 
       return response;
     },

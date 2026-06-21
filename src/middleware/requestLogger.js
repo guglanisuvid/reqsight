@@ -17,7 +17,7 @@ const requestLogger = (req, res, next) => {
 
   req.logger.info(
     { ...requestSerializer(req) },
-    `[${req.correlationId}] - REQUEST RECIEVED`,
+    `[${req.correlationId}] - REQUEST RECEIVED`,
   );
 
   let responseSent = false;

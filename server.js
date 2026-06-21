@@ -34,7 +34,7 @@ app.get("/crash", (req, res) => {
 const axios = require("axios");
 app.get("/axios", async (req, res, next) => {
   try {
-    await axios.get("http://localhost:3000/test?test=1", {
+    const response = await axios.get("http://localhost:3000/test?test=1", {
       params: {
         test: 1,
       },
