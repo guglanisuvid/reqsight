@@ -1,8 +1,6 @@
 "use strict";
 
 const logger = require("../logger");
-const sanitizeAxiosError = require("../utils/sanitizeAxiosError");
-const { responseSerializer } = require("../utils/serializer");
 
 let registered = false;
 

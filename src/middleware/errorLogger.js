@@ -1,3 +1,4 @@
+const config = require("../config");
 const logger = require("../logger");
 const sanitizeAxiosError = require("../utils/sanitizeAxiosError");
 
@@ -44,7 +45,7 @@ const errorLogger = (err, req, res, _next) => {
   });
 
   // Include stack trace only in development
-  if (process.env.NODE_ENV !== "production") {
+  if (config.stackTrace) {
     errorResponse.stack = err?.stack;
   }
 

@@ -1,7 +1,5 @@
 const pino = require("pino");
-
-const prettyLogs = true;
-const level = "info";
+const config = require("../config");
 
 const redact = {
   paths: [],
@@ -14,7 +12,7 @@ const serializers = {
 };
 
 const loggerOptions = {
-  level,
+  level: config.logLevel,
   timestamp: pino.stdTimeFunctions.isoTime,
   serializers,
   redact,
@@ -22,7 +20,7 @@ const loggerOptions = {
 };
 
 // Logger configuration
-const log = prettyLogs
+const log = config.prettyLogs
   ? pino(
       loggerOptions,
       pino.transport({

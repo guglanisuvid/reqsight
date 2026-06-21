@@ -27,10 +27,20 @@ const requestLogger = (req, res, next) => {
 
     responseSent = true;
 
+    const endTime = Date.now();
+
     req.logger.info(
       {
         ...requestSerializer(req),
-        ...responseSerializer(res, data, Date.now() - req.startTime),
+        ...responseSerializer(res),
+        duration: `${endTime - req.startTime}ms`,
+        endTime,
+        responseSize: data
+          ? `${Buffer.byteLength(
+              typeof data === "string" ? data : JSON.stringify(data),
+              "utf8",
+            )} bytes`
+          : "0 bytes",
       },
       `[${req.correlationId}] - REQUEST COMPLETED`,
     );
