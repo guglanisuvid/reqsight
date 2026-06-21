@@ -1,5 +1,7 @@
 # ReqSight
 
+[![npm version](https://img.shields.io/npm/v/reqsight.svg)](https://www.npmjs.com/package/reqsight)
+
 Production-grade observability middleware for Express. Structured request/response logging, correlation ID propagation, outbound HTTP tracing via Axios interceptors, and a consistent error-handling pipeline — wired up in minutes, configurable without touching package internals.
 
 Built on [Pino](https://getpino.io) for high-throughput, low-overhead JSON logging.
